@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <div class="header-image">
+        <img src="assets/img/tellevoimage2.png" alt="Header Image">
+      </div>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content">
+  <div class="recover-container">
+    <ion-item>
+      <ion-icon name="mail" slot="start" class="input-icon"></ion-icon>
+      <ion-input [(ngModel)]="email" label="Email" type="email"placeholder=""> </ion-input>
+    </ion-item> 
+    <ion-button (click)="recuperar()"expand="block">Recuperar</ion-button>
+    <ion-button (click)="atras()"expand="block">Volver</ion-button>
+  </div>
+</ion-content>
+
+<ion-footer class="footer">
+  <p>Derechos reservados</p>
+  <p>Innovation © 2024 </p>
+</ion-footer>

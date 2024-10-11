@@ -1,0 +1,87 @@
+ion-header {
+  --background: transparent; // Mantiene el fondo del header transparente
+
+  ion-toolbar {
+    display: flex;
+    justify-content: center; // Asegura que la imagen esté centrada horizontalmente
+    align-items: center; // Alinea verticalmente la imagen al centro
+    height: 170px; // Incrementa la altura para dar más espacio a la imagen (ajústalo según sea necesario)
+
+    .header-image {
+      display: flex;
+      justify-content: center; // Centra la imagen dentro de su contenedor
+      align-items: center;
+      height: 100%; // Asegura que la imagen ocupe todo el espacio disponible
+
+      img {
+        max-width: 80%;
+        height: auto;
+        object-fit: contain; // Asegura que la imagen mantenga su proporción
+        mix-blend-mode: multiply; // Mezcla la imagen con el fondo del header
+        background-color: transparent; // Asegura que la imagen no agregue un fondo
+      }
+    }
+  }
+}
+
+
+
+
+.content {
+  --background: #000000; /* Fondo negro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+  
+.recover-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  background: #c9c618; /* Fondo gris oscuro */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  padding: 20px;
+}
+  
+.icon-circle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+  
+.user-icon {
+  font-size: 60px;
+  color: #007bff;
+  background-color: #ffffff; /* Fondo blanco para el círculo */
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+  
+.input-item {
+  margin: 10px 0;
+  --padding-start: 20px;
+}
+  
+.input-icon {
+  color: #007bff;
+}
+  
+.login-button {
+  margin-top: 20px;
+  --background: #007bff;
+  --color: #fff;
+}
+  
+.footer {
+  text-align: center;
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+}
+  
