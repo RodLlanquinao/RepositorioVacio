@@ -2,23 +2,45 @@
   <ion-toolbar>    
     <ion-title>TeLlevoAPP</ion-title>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="map-container">
-    <google-map
-      width="100%"
-      height="100%"
-      [center]="center"
-      [zoom]="zoom">
-    </google-map>
-  </div>
-
-  <div class="button-container">
-    <ion-button (click)="goToCreateRide()" expand="block" color="primary" class="custom-button">Iniciar Viaje</ion-button>
-    <ion-button (click)="goToRideList()" expand="block" color="secondary" class="custom-button">Buscar Viajes</ion-button>
-  </div>
+  <ion-content [fullscreen]="true">
+    <div id="map-container" style="width: 50%; height: 50%;"></div>
 </ion-content>
+
+<ion-item>
+  <ion-label>Dirección de partida</ion-label>
+  <ion-input placeholder="Ingresa dirección de partida" [(ngModel)]="startingPoint"></ion-input>
+  <ion-button (click)="setStartingPointMarker()">Marcar Partida</ion-button>
+</ion-item>
+
+<ion-item>
+  <ion-label>Dirección de destino</ion-label>
+  <ion-input placeholder="Ingresa dirección de destino" [(ngModel)]="destinationPoint"></ion-input>
+  <ion-button (click)="setDestinationPointMarker()">Marcar Destino</ion-button>
+</ion-item>
+
+ 
+
+
+<ion-footer class="footer">
+  <ion-tab-button tab="home" (click)="goToHome()">
+    <ion-icon name="home-outline"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="ride-list" (click)="goToRideList()">
+    <ion-icon name="car-outline"></ion-icon>
+    <ion-label>Lista de viajes</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="profile" (click)="goToProfile()">
+    <ion-icon name="person-outline"></ion-icon>
+    <ion-label>Perfil</ion-label>
+  </ion-tab-button>
+
+  
+</ion-footer>

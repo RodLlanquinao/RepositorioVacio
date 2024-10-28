@@ -50,3 +50,24 @@
     --padding-start: 15px;
   }
   
+
+.footer {
+  display: flex;
+  justify-content: space-around;  // Distribuye el espacio uniformemente
+  align-items: center;             // Centra verticalmente los elementos
+  padding: 10px;
+  background-color: #136179;       // Color de fondo del footer
+  border-top: 1px solid #ccc;      // Línea superior del footer para dar separación
+   
+  ion-tab-button {
+   flex: 1;                       // Cada botón ocupa el mismo espacio
+   text-align: center;
+   ion-icon {
+     font-size: 24px;             // Tamaño del ícono
+     margin-bottom: 5px;          // Espacio entre el ícono y el texto
+   }
+   ion-label {
+     font-size: 12px;             // Tamaño de la etiqueta
+   }
+  }
+}

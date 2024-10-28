@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-ride-list',
@@ -12,9 +14,25 @@ export class RideListPage implements OnInit {
     { destination: 'Mall Plaza', cost: 1800 },
   ];
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  goToCreateRide() {
+    this.router.navigateByUrl('/create-ride');
+  }
+
+  goToRideList() {
+    this.router.navigateByUrl('/ride-list');
+  }
+
+  goToProfile(){
+    this.router.navigateByUrl('/profile')
+  }
+
+  goToHome(){
+    this.router.navigateByUrl('/home')
   }
 
 }

@@ -28,3 +28,23 @@
     </ion-item>
   </ion-list>
 </ion-content>
+
+
+<ion-footer class="footer">
+  <ion-tab-button tab="home" (click)="goToHome()">
+    <ion-icon name="home-outline"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="ride-list" (click)="goToRideList()">
+    <ion-icon name="car-outline"></ion-icon>
+    <ion-label>Lista de viajes</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="profile" (click)="goToProfile()">
+    <ion-icon name="person-outline"></ion-icon>
+    <ion-label>Perfil</ion-label>
+  </ion-tab-button>
+
+  
+</ion-footer>
