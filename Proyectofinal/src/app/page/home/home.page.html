@@ -4,25 +4,29 @@
     <ion-buttons slot="start">
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+
+</ion-header> 
 
 <ion-content [fullscreen]="true">
-  <ion-content [fullscreen]="true">
-    <div id="map-container" style="width: 50%; height: 50%;"></div>
+  
+  <div class="map-container" id="map"></div>
+
+  <ion-item>
+    <ion-label position="floating">Dirección de partida</ion-label>
+    <ion-input #startingInput [(ngModel)]="startingAddress" placeholder="Ingresa la dirección de partida" (ionFocus)="initStartingAutocomplete()"></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="setStartingMarker()">Marcar Partida</ion-button>
+
+  <ion-item>
+    <ion-label position="floating">Dirección de destino</ion-label>
+    <ion-input #destinationInput [(ngModel)]="destinationAddress" placeholder="Ingresa la dirección" (ionFocus)="initAutocomplete()"></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="setDestinationMarker()">Marcar Destino</ion-button>
+
+  <ion-button expand="block" (click)="getCurrentLocation()">Obtener Ubicación Actual</ion-button>
+
+
 </ion-content>
-
-<ion-item>
-  <ion-label>Dirección de partida</ion-label>
-  <ion-input placeholder="Ingresa dirección de partida" [(ngModel)]="startingPoint"></ion-input>
-  <ion-button (click)="setStartingPointMarker()">Marcar Partida</ion-button>
-</ion-item>
-
-<ion-item>
-  <ion-label>Dirección de destino</ion-label>
-  <ion-input placeholder="Ingresa dirección de destino" [(ngModel)]="destinationPoint"></ion-input>
-  <ion-button (click)="setDestinationPointMarker()">Marcar Destino</ion-button>
-</ion-item>
-
  
 
 

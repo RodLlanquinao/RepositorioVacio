@@ -12,7 +12,7 @@ export class LoginPage implements OnInit {
 
   email=""
   password=""
-  constructor(private firebase:FirebaseService, private router:Router, private alertcontroller:AlertController){ }
+  constructor(private firebase:FirebaseService, private router:Router, private alertcontroller:AlertController,){ }
 
 
   ngOnInit() {

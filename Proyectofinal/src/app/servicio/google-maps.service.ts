@@ -27,9 +27,18 @@ export class GoogleMapsService {
     ).toPromise();
   }
 
-  getRoute(origin: string, destination: string) {
-    const apiKey = 'AIzaSyATpuS-tpxxIcujFFl7yg3q8HcHcd21Gy4';
-    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
-    return this.http.get(url);
+   
+
+  getRoute(start: { lat: number, lng: number }, end: { lat: number, lng: number }) {
+    const url = `https://routes.googleapis.com/directions/v2:computeRoutes?key=${this.apiKey}`;
+    
+    const requestBody = {
+      origin: { location: { latLng: { latitude: start.lat, longitude: start.lng } } },
+      destination: { location: { latLng: { latitude: end.lat, longitude: end.lng } } },
+      travelMode: "DRIVE",
+      polylineEncoding: "ENCODED_POLYLINE"
+    };
+
+    return this.http.post(url, requestBody);
   }
 }

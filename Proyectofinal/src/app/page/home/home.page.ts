@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/servicio/firebase.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMapsService } from 'src/app/servicio/google-maps.service';
+
+declare const google: any;
 
 @Component({
   selector: 'app-home',
@@ -9,65 +11,147 @@ import { GoogleMapsService } from 'src/app/servicio/google-maps.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  startingPoint: string = '';
-  destinationPoint: string = ''; 
-  center: google.maps.LatLngLiteral = { lat: -33.5024, lng: -70.6130 }; // Coordenadas por defecto
-  zoom = 8; // Nivel de zoom por defecto
-  map!: google.maps.Map;
-  markers: google.maps.marker.AdvancedMarkerElement[] = [];
 
-  constructor(private firebase: FirebaseService, private router: Router, private googleMapsService: GoogleMapsService ) { }
+  map!: any;
+  startingAddress: string = '';
+  destinationAddress: string = '';
+  autocomplete: any;
+  autocompleteDestination: any;
+  
+  
+  @ViewChild('startingInput', { static: false, read: ElementRef }) startingInput!: ElementRef;
+  @ViewChild('destinationInput', { static: false, read: ElementRef }) destinationInput!: ElementRef;
+
+  constructor(private firebase: FirebaseService, private router: Router, private googleMapsService: GoogleMapsService) { }
+  
 
   ngOnInit() {
-    // Inicialización del mapa
-    
-    const mapOptions: google.maps.MapOptions = {
-      center: this.center,
-      zoom: this.zoom,
-    };
-    this.map = new google.maps.Map(document.getElementById("map-container") as HTMLElement, mapOptions);
+    this.loadMap();
   }
 
-  
-
-  
-
-  async setStartingPointMarker() {
-    if (this.startingPoint) {
-      const coordinates = await this.googleMapsService.getCoordinates(this.startingPoint);
-      if (coordinates) {
-        this.addMarker(coordinates, 'Punto de Partida');
-      }
-    }
-  }
-
-  async setDestinationPointMarker() {
-    if (this.destinationPoint) {
-      const coordinates = await this.googleMapsService.getCoordinates(this.destinationPoint);
-      if (coordinates) {
-        this.addMarker(coordinates, 'Punto de Destino');
-      }
-    }
-  }
-
-  async addMarker(position: google.maps.LatLngLiteral, title: string) {
-    const marker = new google.maps.marker.AdvancedMarkerElement({
-      position,
-      map: this.map,
-      title,
+  loadMap() {
+    const mapContainer = document.getElementById('map') as HTMLElement;
+    this.map = new google.maps.Map(mapContainer, {
+      center: { lat: -33.4569, lng: -70.6483 },
+      zoom: 12,
     });
-    this.markers.push(marker);
-    this.center = position;
-    this.zoom = 12;
   }
 
-  async calculateRoute() {
-    if (this.startingPoint && this.destinationPoint) {
-      const route = await this.googleMapsService.getRoute(this.startingPoint, this.destinationPoint);
-      this.router.navigateByUrl('/home');
-      // Aquí puedes utilizar 'route' para dibujar la ruta en el mapa
+  
+  setStartingMarker() {
+    if (this.startingAddress.trim() !== '') {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: this.startingAddress }, (results: any, status: any) => {
+        if (status === 'OK') {
+          const position = results[0].geometry.location;
+          this.map.setCenter(position);
+          new google.maps.Marker({
+            position: position,
+            map: this.map,
+            title: 'Partida',
+          });
+        } else {
+          alert('No se encontró la dirección: ' + status);
+        }
+      });
+    } else {
+      alert('Por favor, ingresa una dirección de partida.');
     }
   }
+  
+
+  setDestinationMarker() {
+    if (this.destinationAddress.trim() !== '') {
+      const geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({ address: this.destinationAddress }, (results: any, status: any) => {
+        if (status === 'OK') {
+          const position = results[0].geometry.location;
+          this.map.setCenter(position);
+
+          new google.maps.Marker({
+            position: position,
+            map: this.map,
+            title: 'Destino',
+          });
+        } else {
+          alert('No se encontró la dirección: ' + status);
+        }
+      });
+    } else {
+      alert('Por favor, ingresa una dirección.');
+    }
+  }
+
+  getCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const currentLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+  
+          // Centrar el mapa en la ubicación actual
+          this.map.setCenter(currentLocation);
+  
+          // Agregar un marcador en la ubicación actual
+          new google.maps.Marker({
+            position: currentLocation,
+            map: this.map,
+            title: 'Ubicación Actual',
+          });
+        },
+        (error) => {
+          console.error('Error obteniendo la ubicación: ', error);
+          alert('No se pudo obtener la ubicación actual.');
+        }
+      );
+    } else {
+      alert('La geolocalización no está soportada por este navegador.');
+    }
+  }
+
+  initAutocomplete() {
+    // Obtén el campo de entrada dentro del ion-input
+    const inputElement = this.destinationInput.nativeElement.querySelector('input') as HTMLInputElement;
+    this.autocomplete = new google.maps.places.Autocomplete(inputElement);
+    
+    // Escucha el cambio de selección de dirección
+    this.autocomplete.addListener('place_changed', () => {
+      const place = this.autocomplete.getPlace();
+      if (place.geometry) {
+        this.destinationAddress = place.formatted_address;
+        this.map.setCenter(place.geometry.location);
+
+        // Agregar marcador en la ubicación seleccionada
+        new google.maps.Marker({
+          position: place.geometry.location,
+          map: this.map,
+          title: 'Destino', 
+        });
+      }
+    });
+  }
+
+
+  initStartingAutocomplete() {
+    const inputElement = this.startingInput.nativeElement.querySelector('input') as HTMLInputElement;
+    this.autocomplete = new google.maps.places.Autocomplete(inputElement);
+    this.autocomplete.addListener('place_changed', () => {
+      const place = this.autocomplete.getPlace();
+      if (place.geometry) {
+        this.startingAddress = place.formatted_address;
+        this.map.setCenter(place.geometry.location);
+        new google.maps.Marker({
+          position: place.geometry.location,
+          map: this.map,
+          title: 'Partida',
+        });
+      }
+    });
+  }
+
 
   async logout() {
     await this.firebase.logout();
