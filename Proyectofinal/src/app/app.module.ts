@@ -21,7 +21,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    IonicStorageModule
+    IonicStorageModule.forRoot()
    
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideHttpClient(withInterceptorsFromDi())],

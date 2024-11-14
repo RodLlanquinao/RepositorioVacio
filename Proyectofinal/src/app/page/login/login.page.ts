@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/servicio/firebase.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -9,14 +10,17 @@ import { FirebaseService } from 'src/app/servicio/firebase.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  message= "";
   email=""
   password=""
-  constructor(private firebase:FirebaseService, private router:Router, private alertcontroller:AlertController,){ }
+  constructor(private firebase:FirebaseService, private router:Router, private alertcontroller:AlertController, private storage: Storage){ }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.storage.create();
   }
+
+
   async login(){
     try {
       let usuario=await this.firebase.auth(this.email,this.password);
@@ -38,4 +42,26 @@ export class LoginPage implements OnInit {
     })
     await alert.present();
   }
+
+  async ionViewWillEnter() {
+    await this.storage.create();
+    this.message = 'Press Set, Then Press Get';
+  }
+
+  async setValue() {
+    await this.storage.set('name', 'Max');
+  }
+
+  async getValue() {
+    const value = await this.storage.get('name');
+    this.message = `Got value ${value}`;
+    console.log(this.message);
+  }
+
+  async enumerate() {
+    this.storage.forEach((value, key, index) => {
+      this.message = `ITEM - ${key} = ${value} [${index}]`
+      console.log(this.message);
+    });
+  } 
 }
