@@ -1,28 +1,61 @@
 <ion-header [translucent]="true">
-    <ion-toolbar>
-      <div class="header-image">
-        <img src="assets/img/tellevoimage2.png" alt="Header Image">
-      </div>
+  <ion-toolbar>
+    <div class="header-image">
+      <img src="assets/img/tellevoimage2.png" alt="Header Image">
+    </div>
   </ion-toolbar>
-
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content">
   <div class="register-container">
+    <!-- Campo para Nombre -->
+    <ion-item>
+      <ion-icon name="person" slot="start" class="input-icon"></ion-icon>
+      <ion-input [(ngModel)]="nombre" label="Nombre" placeholder="Nombre completo"></ion-input>
+    </ion-item>
+
+    <!-- Campo para Apellido -->
+    <ion-item>
+      <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
+      <ion-input [(ngModel)]="apellido" label="Apellido" placeholder="Apellido"></ion-input>
+    </ion-item>
+
+    <!-- Campo para Fecha de Nacimiento -->
+    <ion-item>
+      <ion-icon name="calendar" slot="start" class="input-icon"></ion-icon>
+      <ion-datetime
+        [(ngModel)]="fechaNacimiento"
+        label="Fecha de Nacimiento"
+        placeholder="Selecciona una fecha"
+        presentation="date"
+      ></ion-datetime>
+    </ion-item>
+
+    <!-- Campo para Email -->
     <ion-item>
       <ion-icon name="mail" slot="start" class="input-icon"></ion-icon>
-      <ion-input [(ngModel)]="email" label="Email" type="email"placeholder=""> </ion-input>
-    </ion-item> 
+      <ion-input [(ngModel)]="email" label="Email" type="email" placeholder="Correo electrónico"></ion-input>
+    </ion-item>
+
+    <!-- Campo para Teléfono --> 
+    <ion-item>
+      <ion-icon name="call" slot="start" class="input-icon"></ion-icon>
+      <ion-input [(ngModel)]="telefono" label="Teléfono" type="tel" placeholder="Número de teléfono"></ion-input>
+    </ion-item>
+
+    <!-- Campo para Contraseña -->
     <ion-item>
       <ion-icon name="lock-closed" slot="start" class="input-icon"></ion-icon>
-      <ion-input [(ngModel)]="password" label="Password" type="password"value=""> </ion-input>
-    </ion-item> 
-    <ion-button (click)="registrar()"expand="block">Registrar</ion-button>
-    <ion-button (click)="atras()"expand="block">Volver</ion-button>
+      <ion-input [(ngModel)]="password" label="Contraseña" type="password" placeholder="Crea una contraseña"></ion-input>
+    </ion-item>
+
+    <!-- Botones -->
+    <ion-button (click)="registrar()" expand="block">Registrar</ion-button>
+    <ion-button (click)="atras()" expand="block" color="light">Volver</ion-button>
   </div>  
 </ion-content>
 
 <ion-footer class="footer">
   <p>Derechos reservados</p>
-  <p>Innovation © 2024 </p>
+  <p>Innovation © 2024</p>
 </ion-footer>

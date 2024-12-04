@@ -1,76 +1,89 @@
 ion-header {
-  --background: transparent; // Mantiene el fondo del header transparente
+  --background: transparent;
 
   ion-toolbar {
     display: flex;
-    justify-content: center; // Asegura que la imagen esté centrada horizontalmente
-    align-items: center; // Alinea verticalmente la imagen al centro
-    height: 170px; // Incrementa la altura para dar más espacio a la imagen (ajústalo según sea necesario)
+    justify-content: center;
+    align-items: center;
+    height: 170px;
 
     .header-image {
-      display: flex;
-      justify-content: center; // Centra la imagen dentro de su contenedor
+      display: flex; 
+      justify-content: center;
       align-items: center;
-      height: 100%; // Asegura que la imagen ocupe todo el espacio disponible
+      height: 100%;
 
       img {
         max-width: 80%;
         height: auto;
-        object-fit: contain; // Asegura que la imagen mantenga su proporción
-        mix-blend-mode: multiply; // Mezcla la imagen con el fondo del header
-        background-color: transparent; // Asegura que la imagen no agregue un fondo
+        object-fit: contain;
+        mix-blend-mode: multiply;
+        background-color: transparent;
       }
     }
   }
 }
 
-
 .register-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  text-align: center;
-  background: #c9c618; 
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  align-items: stretch; // Hace que los elementos ocupen todo el ancho disponible
+  width: 100%; 
+  max-width: 500px; // Límite de ancho para pantallas grandes
+  margin: 20px auto; // Centra el contenedor horizontalmente y añade espacio arriba
   padding: 20px;
-} 
-
-
-
+  background: #c9c618;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
 
 ion-content {
-  --background: #171839; // Fondo oscuro para el contenido
-  padding: 20px; // Espaciado alrededor del contenido
+  --background: #171839;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Mueve los elementos hacia la parte superior
+  padding: 20px;
 }
 
 ion-item {
-  margin: 15px 0; // Espacio entre los elementos de entrada
-  --padding-start: 20px; // Ajusta el padding inicial para que los íconos estén alineados correctamente
+  margin: 15px 0; // Aumenta el espacio entre cada campo
+  width: 100%;
+  --padding-start: 15px; // Ajusta el espacio del ícono
 
   .input-icon {
-    color: #007bff; // Color azul para los íconos
+    color: #007bff; // Azul para los íconos
+    font-size: 22px; // Tamaño del ícono para que sea más visible
   }
 
-  ion-input {
-    --placeholder-color: #999; // Color del texto placeholder
-    --padding-start: 20px; // Asegura que haya espacio entre el ícono y el texto
-    border-bottom: 1px solid #007bff; // Añade una línea inferior para los inputs
+  ion-input,
+  ion-datetime {
+    --placeholder-color: #999; // Color gris para el placeholder
+    border: 1px solid #007bff; // Borde azul alrededor del campo
+    border-radius: 5px; // Bordes redondeados
+    padding: 10px; // Espaciado interno para mayor claridad
+    font-size: 16px; // Tamaño del texto
+    width: 100%; // Asegura que ocupe todo el ancho disponible
   }
+}
+
+ion-datetime {
+  --background: #ffffff; // Fondo blanco para el desplegable
+  --color: #007bff; // Azul para el texto
+  z-index: 1000; // Asegura que el calendario se muestre por encima de otros elementos
 }
 
 ion-button {
   margin-top: 20px;
-  --background: #234c94; // Color de fondo azul oscuro
-  --color: #fff; // Texto blanco
-  border-radius: 5px; // Bordes redondeados para los botones
+  width: 100%;
+  max-width: 500px;
+  --background: #234c94;
+  --color: #fff;
+  border-radius: 5px;
 }
 
 .footer {
   text-align: center;
   padding: 10px;
-  background: #136179; // Fondo azul para el footer
-  color: #fff; // Texto blanco
+  background: #136179;
+  color: #fff;
 }

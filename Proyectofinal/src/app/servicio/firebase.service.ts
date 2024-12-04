@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
 
-  constructor(private firebase:AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) { }
 
   async auth(email:string, password:string){
-    const request=await this.firebase.signInWithEmailAndPassword(email,password);
+    const request=await this.afAuth.signInWithEmailAndPassword(email,password);
     return request
   }
 
   async registrar(email:string, password:string){
-    const request=await this.firebase.createUserWithEmailAndPassword(email,password);
+    const request=await this.afAuth.createUserWithEmailAndPassword(email,password);
+    this.router.navigateByUrl('felicitacion'); 
     return request
   }
 
   async recuperar(email:string){
-    const request=await this.firebase.sendPasswordResetEmail(email);
+    const request=await this.afAuth.sendPasswordResetEmail(email);
     return request
   }
   async logout(){
-    await this.firebase.signOut();
+    await this.afAuth.signOut(); 
   }
 }

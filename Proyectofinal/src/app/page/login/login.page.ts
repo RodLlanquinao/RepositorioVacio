@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: ['./login.page.scss'], 
 })
 export class LoginPage implements OnInit {
   message= "";
@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
     })
     await alert.present();
   }
-
+ 
   async ionViewWillEnter() {
     await this.storage.create();
     this.message = 'Press Set, Then Press Get';

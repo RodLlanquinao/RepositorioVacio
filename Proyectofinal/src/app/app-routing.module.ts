@@ -9,8 +9,11 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
+
+ 
+
   {
     path: 'home',
     canActivate: [AngularFireAuthGuard],
@@ -18,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./page/home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'login',
+    path: 'login', 
     loadChildren: () => import('./page/login/login.module').then(m => m.LoginPageModule)
   },
   {
@@ -52,7 +55,20 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redireccionarLogin },
     loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
-  }
+  },
+  {
+    path: 'registrar-conductor',
+    loadChildren: () => import('./page/registrar-conductor/registrar-conductor.module').then( m => m.RegistrarConductorPageModule)
+  },   {
+    path: 'felicitacion',
+    loadChildren: () => import('./page/felicitacion/felicitacion.module').then( m => m.FelicitacionPageModule)
+  },
+
+   
+
+  
+  
+ 
 ];
 
 @NgModule({
