@@ -31,9 +31,10 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/home'],navigationextras);
     } catch (error) {
       console.log(error);
-      this.popAlert();
+      this.popAlert(); 
     }
   }
+  
   async popAlert(){
     const alert = await this.alertcontroller.create({
       header:'Error',

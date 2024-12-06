@@ -1,0 +1,83 @@
+ion-header {
+    --background: transparent;
+  
+    ion-toolbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+  
+      .header-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+  
+        img {
+          max-width: 70%;
+          height: auto;
+          object-fit: contain;
+          mix-blend-mode: multiply;
+          background-color: transparent;
+        }
+      }
+  
+      h1 {
+        color: #ffffff; // Texto blanco
+        font-size: 2rem;
+        margin: 0;
+      }
+    }
+}
+  
+.felicitacion-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Centra verticalmente
+    align-items: center; // Centra horizontalmente
+    height: 100vh; // Ocupa toda la altura de la pantalla
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; 
+    padding: 20px;
+    background: #4caf50; // Fondo verde
+    border-radius: 10px;
+    text-align: center;
+  
+    h1 {
+      color: #ffffff; // Texto blanco
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      color: #ffffff; // Texto blanco
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+  
+    ion-button {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 300px;
+      --background: #234c94; // Azul oscuro
+      --color: #ffffff; // Texto blanco
+      border-radius: 5px;
+    }
+}
+  
+ion-content {
+    --background: #171839;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    background: #136179;
+    color: #fff;
+}

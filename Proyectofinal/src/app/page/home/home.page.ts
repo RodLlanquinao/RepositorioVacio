@@ -12,11 +12,15 @@ declare const google: any;
 })
 export class HomePage implements OnInit {
 
+  directionsService!: google.maps.DirectionsService;
+  directionsRenderer!: google.maps.DirectionsRenderer;
+
   map!: any;
   startingAddress: string = '';
   destinationAddress: string = '';
   autocomplete: any;
   autocompleteDestination: any;
+
   
   
   @ViewChild('startingInput', { static: false, read: ElementRef }) startingInput!: ElementRef;
@@ -27,6 +31,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadMap();
+    this.watchAddressChanges();
   }
 
   loadMap() {
@@ -35,6 +40,11 @@ export class HomePage implements OnInit {
       center: { lat: -33.4569, lng: -70.6483 },
       zoom: 12,
     });
+
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsRenderer = new google.maps.DirectionsRenderer();
+    this.directionsRenderer.setMap(this.map);
+
   }
 
   
@@ -50,6 +60,12 @@ export class HomePage implements OnInit {
             map: this.map,
             title: 'Partida',
           });
+
+          if (this.destinationAddress.trim() !== '') {
+            this.drawRoute();
+          }
+
+
         } else {
           alert('No se encontró la dirección: ' + status);
         }
@@ -58,7 +74,6 @@ export class HomePage implements OnInit {
       alert('Por favor, ingresa una dirección de partida.');
     }
   }
-  
 
   setDestinationMarker() {
     if (this.destinationAddress.trim() !== '') {
@@ -74,6 +89,12 @@ export class HomePage implements OnInit {
             map: this.map,
             title: 'Destino',
           });
+
+          // Intentar trazar la ruta si ambas direcciones están definidas
+          if (this.startingAddress.trim() !== '') {
+            this.drawRoute();
+          }
+
         } else {
           alert('No se encontró la dirección: ' + status);
         }
@@ -82,6 +103,50 @@ export class HomePage implements OnInit {
       alert('Por favor, ingresa una dirección.');
     }
   }
+
+  drawRoute() {
+    if (this.startingAddress.trim() === '' || this.destinationAddress.trim() === '') {
+      return; // No se hace nada si no hay direcciones completas
+    }
+  
+    const request = {
+      origin: this.startingAddress,
+      destination: this.destinationAddress,
+      travelMode: google.maps.TravelMode.DRIVING,
+    };
+  
+    this.directionsService.route(request, (result: any, status: any) => {
+      if (status === 'OK') {
+        this.directionsRenderer.setDirections(result);
+  
+        // Calcular el costo de la ruta
+        const route = result.routes[0];
+        const distanceInMeters = route.legs[0].distance.value; // Distancia en metros
+        const distanceInKm = distanceInMeters / 1000; // Convertir a kilómetros
+        const ratePerKm = 1; // Tarifa fija por kilómetro (ejemplo: 2 USD por kilómetro)
+        const totalCost = distanceInKm * ratePerKm;
+  
+        // Mostrar el costo en la consola (puedes cambiar esto para mostrarlo en la UI)
+        console.log(`Distancia: ${distanceInKm.toFixed(2)} km`);
+        console.log(`Costo estimado: $${totalCost.toFixed(2)}`);
+        alert(`Costo estimado del viaje: $${totalCost.toFixed(2)}`);
+      } else {
+        console.error('Error trazando la ruta: ', status);
+      }
+    });
+  }
+
+  //para agregar dirección al momento de marcar la segunda dirección
+  watchAddressChanges() {
+    const interval = setInterval(() => {
+      // Si ambas direcciones están completas, trazar la ruta
+      if (this.startingAddress.trim() !== '' && this.destinationAddress.trim() !== '') {
+        this.drawRoute();
+        clearInterval(interval); // Detener el monitoreo después de trazar la ruta
+      }
+    }, 1000); // Verificar cada segundo
+  }
+
 
   getCurrentLocation() {
     if (navigator.geolocation) {
@@ -172,7 +237,9 @@ export class HomePage implements OnInit {
   }
 
   goToHome(){
-    this.router.navigateByUrl('/Home')
+    this.router.navigateByUrl('/home')
   }
+
+  
 
 }

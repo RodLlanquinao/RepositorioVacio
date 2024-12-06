@@ -19,19 +19,21 @@ export class RegistrarPage implements OnInit {
 
   ngOnInit() {
   }
-async registrar(){ 
-  try {
-    const usuario = await this.firebase.registrar(this.email, this.password);
+  
+  async registrar(){ 
+    try {
+      const usuario = await this.firebase.registrar(this.email, this.password);
 
-    console.log(usuario);
-    // Navega a la página de felicitaciones
-    this.router.navigateByUrl('felicitacion'); 
-  } catch (error) {
-    console.error('Error durante el registro:', error);
-    // Aquí puedes mostrar un mensaje de error al usuario
+      console.log(usuario);
+      // Navega a la página de felicitaciones
+      this.router.navigateByUrl('/felicitacion'); 
+    } catch (error) {
+      console.error('Error durante el registro:', error);
+      // Aquí puedes mostrar un mensaje de error al usuario
+    }
+  } 
+
+  login() {
+    this.router.navigateByUrl('/login'); 
   }
-} 
-atras() {
-  this.navCtrl.back(); 
-}
 }

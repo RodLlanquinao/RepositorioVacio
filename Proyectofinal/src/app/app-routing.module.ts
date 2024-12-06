@@ -11,15 +11,13 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
-
- 
-
   {
     path: 'home',
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redireccionarLogin },
     loadChildren: () => import('./page/home/home.module').then(m => m.HomePageModule)
   },
+
   {
     path: 'login', 
     loadChildren: () => import('./page/login/login.module').then(m => m.LoginPageModule)
@@ -57,14 +55,29 @@ const routes: Routes = [
     loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
+    path: 'registrar-chofer',
+    loadChildren: () => import('./page/registrar-chofer/registrar-chofer.module').then( m => m.RegistrarChoferPageModule)
+  },
+  {
     path: 'registrar-conductor',
     loadChildren: () => import('./page/registrar-conductor/registrar-conductor.module').then( m => m.RegistrarConductorPageModule)
-  },   {
+  },   
+  {
     path: 'felicitacion',
     loadChildren: () => import('./page/felicitacion/felicitacion.module').then( m => m.FelicitacionPageModule)
   },
+  { 
+    path: '**', 
+    loadChildren: () => import('./page/error404/error404.module').then(m => m.Error404PageModule) 
+  },
+  {
+    path: 'error404',
+    loadChildren: () => import('./page/error404/error404.module').then( m => m.Error404PageModule)
+  },
+  
 
-   
+
+  
 
   
   

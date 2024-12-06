@@ -21,6 +21,16 @@ export class FirebaseService {
     return request
   }
 
+  
+
+  async registrarChofer(email:string, password:string, nombre: string, apellido: string){
+    const request=await this.afAuth.createUserWithEmailAndPassword(email,password);
+    this.router.navigateByUrl('felicitacion'); 
+    return request
+  }
+
+  
+
   async recuperar(email:string){
     const request=await this.afAuth.sendPasswordResetEmail(email);
     return request
