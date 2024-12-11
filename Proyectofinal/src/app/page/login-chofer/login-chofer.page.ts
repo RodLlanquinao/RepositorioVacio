@@ -5,33 +5,32 @@ import { FirebaseService } from 'src/app/servicio/firebase.service';
 import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'], 
+  selector: 'app-login-chofer',
+  templateUrl: './login-chofer.page.html',
+  styleUrls: ['./login-chofer.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginChoferPage implements OnInit {
+
   message= ""
   email=""
   password=""
-  constructor(private firebase:FirebaseService, private router:Router, private alertcontroller:AlertController, private storage: Storage){ }
 
+  constructor(private firebase:FirebaseService, private router:Router, private alertcontroller:AlertController, private storage: Storage) { }
 
   async ngOnInit() {
     await this.storage.create();
   }
 
-
-  async login(){
+  async login() {
     try {
-      let usuario=await this.firebase.auth(this.email,this.password);
-      console.log(usuario);
-      const navigationextras:NavigationExtras = {
-        queryParams: {email:this.email, password:this.password, valor: 9999}
-      };
-      this.router.navigate(['/home'],navigationextras);
+      const userCredential = await this.firebase.auth(this.email, this.password);
+      if (userCredential) {
+        // Redirigir al menú del chofer
+        this.router.navigateByUrl('/menu-chofer');
+      }
     } catch (error) {
-      console.log(error);
-      this.popAlert(); 
+      console.error('Error en el login:', error);
+      alert('Credenciales incorrectas');
     }
   }
   
@@ -65,4 +64,5 @@ export class LoginPage implements OnInit {
       console.log(this.message);
     });
   } 
+
 }

@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Selecciona tu rol</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content">
+  <div class="role-selection-container">
+    <ion-button expand="block" [routerLink]="['/login']" class="role-button">
+      Soy Cliente
+    </ion-button>
+    <ion-button expand="block" [routerLink]="['/login-chofer']" class="role-button">
+      Soy Chofer
+    </ion-button>
+  </div>
+</ion-content>

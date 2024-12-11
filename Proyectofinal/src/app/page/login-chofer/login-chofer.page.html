@@ -13,25 +13,23 @@
     </div>
     <ion-item class="input-item">
       <ion-icon name="mail" slot="start" class="input-icon"></ion-icon>
-      <ion-input [(ngModel)]="email" label="Email" type="email" placeholder=" email@somedomain.com"></ion-input>
+      <ion-input [(ngModel)]="email" label="Email" type="email" placeholder="email@somedomain.com"></ion-input>
     </ion-item>
     <ion-item class="input-item">
       <ion-icon name="lock-closed" slot="start" class="input-icon"></ion-icon>
-      <ion-input [(ngModel)]="password" label="Password" type="password" placeholder=" password"></ion-input>
+      <ion-input [(ngModel)]="password" label="Password" type="password" placeholder="password"></ion-input>
     </ion-item>
     <ion-button (click)="login()" expand="block" class="login-button">Login</ion-button>
 
     <ion-row class="action-links">
       <ion-col>
-        <a [routerLink]="['/registrar']" class="link">Registrar usuario</a>
+        <a [routerLink]="['/registrar-chofer']" class="link">Registrar chofer</a>
       </ion-col>
-      
       <ion-col>
-        <a [routerLink]="['/recuperar']" class="link">Recuperar</a>
+        <a [routerLink]="['/recuperar']" class="link">Recuperar contraseña</a>
       </ion-col>
     </ion-row>
-    <ion-button [routerLink]="['/role-selection']" expand="block" class="login-button">Inicio</ion-button>
-  </div> 
+  </div>
 </ion-content>
 
 <ion-footer class="footer">

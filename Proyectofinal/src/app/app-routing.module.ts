@@ -6,11 +6,17 @@ import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/comp
 const redireccionarLogin = () => redirectUnauthorizedTo(['/registrar']);
 
 const routes: Routes = [
+  
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'role-selection',
     pathMatch: 'full',
   },
+  {
+    path: 'role-selection',
+    loadChildren: () => import('./page/role-selection/role-selection.module').then(m => m.RoleSelectionPageModule)
+  },
+
   {
     path: 'home',
     canActivate: [AngularFireAuthGuard],
@@ -23,8 +29,16 @@ const routes: Routes = [
     loadChildren: () => import('./page/login/login.module').then(m => m.LoginPageModule)
   },
   {
+    path: 'login-chofer',
+    loadChildren: () => import('./page/login-chofer/login-chofer.module').then( m => m.LoginChoferPageModule)
+  },
+  {
     path: 'registrar',
     loadChildren: () => import('./page/registrar/registrar.module').then(m => m.RegistrarPageModule)
+  },
+  {
+    path: 'menu-chofer',
+    loadChildren: () => import('./page/menu-chofer/menu-chofer.module').then( m => m.MenuChoferPageModule)
   },
   {
     path: 'recuperar',
@@ -74,6 +88,12 @@ const routes: Routes = [
     path: 'error404',
     loadChildren: () => import('./page/error404/error404.module').then( m => m.Error404PageModule)
   },
+  
+
+  
+  
+  
+
   
 
 
